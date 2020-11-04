@@ -1,0 +1,80 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
+---
+
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+library(lubridate)
+
+```
+## Using NYC restaurants inspection data 
+
+```{r}
+data("rest_inspec")
+
+rest_inpec_clean = 
+  rest_inspec %>% 
+  janitor::clean_names() %>%
+  mutate(zipcode = as.factor(zipcode)) %>%
+drop_na(score) %>%
+drop_na(boro)
+```
+
+
+
+```{r}
+# Wrangling data for to remove duplicate scores for the same restaurant for the same inspection date:
+rest_no_dup = rest_inpec_clean %>%
+  select(dba,boro,zipcode, inspection_date, score, grade)
+
+rest_no_dup = rest_no_dup %>% 
+  distinct(dba,boro, zipcode, inspection_date, score, grade)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+rest_no_dup %>%
+  filter(boro == "MANHATTAN") %>%
+  drop_na(grade) %>%
+  mutate(text_label = str_c("Restaurant name: ", dba, " Grade: ", grade)) %>% 
+  plot_ly(
+    x = ~zipcode, y = ~inspection_date, type = "scatter", mode = "markers",
+    color = ~grade, text = ~text_label, alpha = 0.5)
+
+```
+
+Column {data-width=750}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+rest_no_dup %>%
+  filter (boro =="MANHATTAN")%>%
+  plot_ly(y = ~score, x = ~zipcode, color = ~zipcode, type = "box", colors = "viridis")
+```
+
+### Chart C
+
+```{r}
+rest_inpec_clean %>%
+  filter(boro=="MANHATTAN") %>%
+  group_by(dba) %>%
+  summarise(n=n())%>%
+  top_n(20)%>%
+  plot_ly(x = ~dba, y = ~n, color = ~dba, type = "bar", colors = "viridis")
+```
+

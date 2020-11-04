@@ -8,15 +8,70 @@ editor_options:
   chunk_output_type: console
 ---
 
-# First plot:
 
-We will be looking at the Instacart data
+We will be looking at the NYC Restaurant violations data
 
 ```{r}
 library(tidyverse)
 library(p8105.datasets)
 library(plotly)
+library(lubridate)
+
 ```
 
+## Using NYC restaurants inspection data 
+
+```{r}
+data("rest_inspec")
+
+rest_inpec_clean = 
+  rest_inspec %>% 
+  janitor::clean_names() %>%
+  mutate(zipcode = as.factor(zipcode)) %>%
+drop_na(score) %>%
+drop_na(boro)
+```
+
+### First plot: Top 20 Restaurants in Manhattan with the highest number of violations
+
+```{r}
+rest_inpec_clean %>%
+  filter(boro=="MANHATTAN") %>%
+  group_by(dba) %>%
+  summarise(n=n())%>%
+  top_n(20)%>%
+  plot_ly(x = ~dba, y = ~n, color = ~dba, type = "bar", colors = "viridis")
+```
+
+
+Wrangling data for to remove duplicate scores for the same restaurant for the same inspection date:
+
+```{r}
+rest_no_dup = rest_inpec_clean %>%
+  select(dba,boro,zipcode, inspection_date, score, grade)
+
+rest_no_dup = rest_no_dup %>% 
+  distinct(dba,boro, zipcode, inspection_date, score, grade)
+```
+
+### Second plot: Box plot for scores by zip code in Manhattan
+
+```{r}
+rest_no_dup %>%
+  filter (boro =="MANHATTAN")%>%
+  plot_ly(y = ~score, x = ~zipcode, color = ~zipcode, type = "box", colors = "viridis")
+```
+
+### Third plot: Making a scatterplot of inspection dates versus zipcodes showing when the restaurants were inspected and what grade they received
+
+```{r}
+rest_no_dup %>%
+  filter(boro == "MANHATTAN") %>%
+  drop_na(grade) %>%
+  mutate(text_label = str_c("Restaurant name: ", dba, " Grade: ", grade)) %>% 
+  plot_ly(
+    x = ~zipcode, y = ~inspection_date, type = "scatter", mode = "markers",
+    color = ~grade, text = ~text_label, alpha = 0.7)
+```
 
 

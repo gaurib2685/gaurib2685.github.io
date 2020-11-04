@@ -8,12 +8,13 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Education: 
 
-MPH Epidemiology, Certiifcate in Applied Biostatistics
+### Education: 
+
+MPH Epidemiology, Certiifcate in Applied Biostatistics - 
 Columbia University, Mailman School of Public Health, NY, USA
 
-Bachelor of Pharmacy, Pharmaceutical Sciences
+Bachelor of Pharmacy, Pharmaceutical Sciences - 
 Institute of CHemical Technology, Mumbai, India
 
 
