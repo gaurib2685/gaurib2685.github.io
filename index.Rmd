@@ -1,5 +1,5 @@
 ---
-title: "Website for Gauri Bhatkhande"
+title: "Gauri' profile"
 output: 
   html_document:
     toc: true
@@ -16,5 +16,4 @@ I am a second year MPH Epidemiology candidate with a certificate in Applied Bios
 
 [About me](about.html)
 
-* [LinkedIn](https://www.linkedin.com/in/gauri-bhatkhande/)
 
