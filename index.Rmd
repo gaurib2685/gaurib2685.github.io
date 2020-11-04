@@ -1,5 +1,5 @@
 ---
-title: "Gauri' profile"
+title: "Gauri's profile"
 output: 
   html_document:
     toc: true
@@ -8,11 +8,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-# This is Gauri's first website
+## Bio:
 
 I am a second year MPH Epidemiology candidate with a certificate in Applied Biostatistics at Columbia University Mailman School of Public Health. I have a prior Bachelor's in Pharmacy from the Institute of Chemical Technology, India. 
 
-## Link to my resume
+## Know more about me
 
 [About me](about.html)
 

@@ -1,5 +1,5 @@
 ---
-title: "My Resume"
+title: "Research and professional experience"
 output: 
   html_document:
     toc: true
@@ -8,6 +8,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-# The page includes some of my academic and professional experience
+## Education: 
+
+MPH Epidemiology, Certiifcate in Applied Biostatistics
+Columbia University, Mailman School of Public Health, NY, USA
+
+Bachelor of Pharmacy, Pharmaceutical Sciences
+Institute of CHemical Technology, Mumbai, India
 
 
