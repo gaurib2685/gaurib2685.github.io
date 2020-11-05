@@ -31,19 +31,6 @@ rest_inpec_clean =
 drop_na(score) %>%
 drop_na(boro)
 ```
-
-### First plot: Top 20 Restaurants in Manhattan with the highest number of violations
-
-```{r}
-rest_inpec_clean %>%
-  filter(boro=="MANHATTAN") %>%
-  group_by(dba) %>%
-  summarise(n=n())%>%
-  top_n(20)%>%
-  plot_ly(x = ~dba, y = ~n, color = ~dba, type = "bar", colors = "viridis")
-```
-
-
 Wrangling data for to remove duplicate scores for the same restaurant for the same inspection date:
 
 ```{r}
@@ -54,15 +41,7 @@ rest_no_dup = rest_no_dup %>%
   distinct(dba,boro, zipcode, inspection_date, score, grade)
 ```
 
-### Second plot: Box plot for scores by zip code in Manhattan
-
-```{r}
-rest_no_dup %>%
-  filter (boro =="MANHATTAN")%>%
-  plot_ly(y = ~score, x = ~zipcode, color = ~zipcode, type = "box", colors = "viridis")
-```
-
-### Third plot: Making a scatterplot of inspection dates versus zipcodes showing when the restaurants were inspected and what grade they received
+### First plot: Making a scatterplot of inspection dates versus zipcodes showing when the restaurants were inspected and what grade they received
 
 ```{r}
 rest_no_dup %>%
@@ -75,3 +54,21 @@ rest_no_dup %>%
 ```
 
 
+### Second plot: Box plot for scores by zip code in Manhattan
+
+```{r}
+rest_no_dup %>%
+  filter (boro =="MANHATTAN")%>%
+  plot_ly(y = ~score, x = ~zipcode, color = ~zipcode, type = "box", colors = "viridis")
+```
+
+### Third plot: Top 20 Restaurants in Manhattan with the highest number of violations
+
+```{r}
+rest_inpec_clean %>%
+  filter(boro=="MANHATTAN") %>%
+  group_by(dba) %>%
+  summarise(n=n())%>%
+  top_n(20)%>%
+  plot_ly(x = ~dba, y = ~n, color = ~dba, type = "bar", colors = "viridis")
+```

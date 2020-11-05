@@ -7,8 +7,6 @@ output:
     source: embed
 ---
 
-
-
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(p8105.datasets)
